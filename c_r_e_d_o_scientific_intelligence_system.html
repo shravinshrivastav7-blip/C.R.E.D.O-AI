@@ -1,0 +1,1766 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>C.R.E.D.O. Scientific Intelligence System - Credo World School Dhanbad</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- React 18 & React-DOM UMD CDN -->
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+
+  <!-- Babel Standalone CDN for in-browser JSX parsing -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <!-- Google Fonts - Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased selection:bg-[#235327] selection:text-white">
+
+  <!-- React App Root Container -->
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useState, useEffect } = React;
+
+    const FULL_NAME = "Computational Research & Exploration for Discovery and Observation";
+    const INSTITUTION = "Credo World School Dhanbad";
+    const CREATOR = "Made by Shravin";
+
+    const Icon = ({ name, className = "w-4 h-4" }) => {
+      const icons = {
+        atom: <path d="M12 2v20M2 12h20M4.93 4.93l14.14 14.14M4.93 19.07L19.07 4.93" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>,
+        globe: <path d="M12 2a10 10 0 100 20 10 10 0 000-20zm0 0c-2.5 3-4 7-4 10s1.5 7 4 10m0-20c2.5 3 4 7 4 10s-1.5 7-4 10M2 12h20" stroke="currentColor" strokeWidth="2" strokeLinecap="round" fill="none"/>,
+        activity: <path d="M22 12h-4l-3 9L9 3l-3 9H2" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none"/>,
+        beaker: <path d="M4.5 3h15M6 3v16a2 2 0 002 2h8a2 2 0 002-2V3M6 14h12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" fill="none"/>,
+        zap: <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none"/>,
+        barchart: <path d="M12 20V10M18 20V4M6 20v-4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" fill="none"/>,
+        book: <path d="M4 19.5A2.5 2.5 0 016.5 17H20M4 19.5A2.5 2.5 0 006.5 22H20V3H6.5A2.5 2.5 0 004 5.5v14z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" fill="none"/>,
+        settings: <path d="M12 15a3 3 0 100-6 3 3 0 000 6zm7.4 1.5l1.4 1.4-2.1 2.1-1.4-1.4a8 8 0 01-2 1.2v2h-3v-2a8 8 0 01-2-1.2l-1.4 1.4-2.1-2.1 1.4-1.4a8 8 0 01-1.2-2h-2v-3h2a8 8 0 011.2-2L3.5 7.1l2.1-2.1 1.4 1.4a8 8 0 012-1.2v-2h3v2a8 8 0 012 1.2l1.4-1.4 2.1 2.1-1.4 1.4a8 8 0 011.2 2h2v3h-2a8 8 0 01-1.2 2z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" fill="none"/>,
+        chevronRight: <path d="M9 18l6-6-6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none"/>,
+        alertCircle: <path d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" fill="none"/>,
+        checkCircle: <path d="M22 11.08V12a10 10 0 11-5.93-9.14M22 4L12 14.01l-3-3" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none"/>,
+        upload: <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none"/>,
+        play: <path d="M5 3l14 9-14 9V3z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none"/>,
+        search: <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" fill="none"/>,
+        shieldAlert: <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10zM12 8v4m0 4h.01" stroke="currentColor" strokeWidth="2" strokeLinecap="round" fill="none"/>,
+        cpu: <path d="M4 4h16v16H4zM9 1v3M15 1v3M9 20v3M15 20v3M1 9h3M1 15h3M20 9h3M20 15h3" stroke="currentColor" strokeWidth="2" strokeLinecap="round" fill="none"/>,
+        sparkles: <path d="M12 3l1.9 5.6L19.5 10.5l-5.6 1.9L12 18l-1.9-5.6L4.5 10.5l5.6-1.9L12 3z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" fill="none"/>,
+        helpCircle: <path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3m.08 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" fill="none"/>,
+        layers: <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none"/>,
+        crosshair: <path d="M12 2v4m0 12v4M2 12h4m12 0h4M12 18a6 6 0 100-12 6 6 0 000 12z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" fill="none"/>,
+        sliders: <path d="M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 11V3M1 14h6M9 8h6M17 16h6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" fill="none"/>,
+        hardDrive: <path d="M22 12H2M5.45 5.11L2 12v6a2 2 0 002 2h16a2 2 0 002-2v-6l-3.45-6.89A2 2 0 0016.76 4H7.24a2 2 0 00-1.79 1.11zM6 16h.01M10 16h.01" stroke="currentColor" strokeWidth="2" strokeLinecap="round" fill="none"/>,
+        school: <path d="M22 10v6M2 10l10-5 10 5-10 5zM6 12v5c3 3 9 3 12 0v-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
+      };
+
+      return (
+        <svg viewBox="0 0 24 24" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
+          {icons[name] || icons.atom}
+        </svg>
+      );
+    };
+
+    const CredoWorldSchoolLogo = ({ size = "md" }) => {
+      const sizeClasses = {
+        sm: { height: 'h-9', textMain: 'text-lg', textSub: 'text-[9px]', textLoc: 'text-[7px]' },
+        md: { height: 'h-12', textMain: 'text-2xl', textSub: 'text-[11px]', textLoc: 'text-[8px]' },
+        lg: { height: 'h-16', textMain: 'text-3xl', textSub: 'text-[14px]', textLoc: 'text-[10px]' }
+      }[size] || { height: 'h-12', textMain: 'text-2xl', textSub: 'text-[11px]', textLoc: 'text-[8px]' };
+
+      return (
+        <div className="flex flex-col items-center justify-center select-none font-sans">
+          <div className="flex items-center space-x-1 tracking-tight font-extrabold text-[#235327]">
+            <span className={`font-serif tracking-wider ${sizeClasses.textMain}`}>CRED</span>
+            <div className="relative w-7 h-7 flex items-center justify-center shrink-0">
+              <svg viewBox="0 0 100 100" className="w-full h-full drop-shadow-sm">
+                <circle cx="50" cy="50" r="42" fill="none" stroke="#235327" strokeWidth="12" />
+                <polygon points="50,12 62,38 50,50" fill="#FACC15" />
+                <polygon points="50,12 38,38 50,50" fill="#EAB308" />
+                <polygon points="88,38 62,38 50,50" fill="#0EA5E9" />
+                <polygon points="88,38 68,62 50,50" fill="#0284C7" />
+                <polygon points="73,78 68,62 50,50" fill="#F97316" />
+                <polygon points="73,78 50,65 50,50" fill="#EA580C" />
+                <polygon points="27,78 50,65 50,50" fill="#10B981" />
+                <polygon points="27,78 32,62 50,50" fill="#059669" />
+                <polygon points="12,38 32,62 50,50" fill="#EF4444" />
+                <polygon points="12,38 38,38 50,50" fill="#DC2626" />
+              </svg>
+            </div>
+          </div>
+          
+          <span className={`font-sans font-black tracking-widest text-[#D9383A] uppercase -mt-1 ${sizeClasses.textSub}`}>
+            WORLD SCHOOL
+          </span>
+          
+          <span className={`font-sans font-bold tracking-[0.25em] text-[#235327] uppercase -mt-0.5 ${sizeClasses.textLoc}`}>
+            DHANBAD
+          </span>
+        </div>
+      );
+    };
+
+    function parseCSV(text) {
+      const lines = text.trim().split(/\r\n|\n/);
+      if (lines.length < 2) return { headers: [], rows: [] };
+      const headers = lines[0].split(',').map(h => h.trim().replace(/^["']|["']$/g, ''));
+      const rows = [];
+      for (let i = 1; i < lines.length; i++) {
+        if (!lines[i].trim()) continue;
+        const values = lines[i].split(',').map(v => v.trim().replace(/^["']|["']$/g, ''));
+        if (values.length === headers.length) {
+          const rowObj = {};
+          headers.forEach((h, idx) => {
+            const val = values[idx];
+            const num = Number(val);
+            rowObj[h] = !isNaN(num) && val !== '' ? num : val;
+          });
+          rows.push(rowObj);
+        }
+      }
+      return { headers, rows };
+    }
+
+    function calculateStats(numbers) {
+      const valid = numbers.filter(n => typeof n === 'number' && !isNaN(n));
+      if (valid.length === 0) return { mean: 0, stdDev: 0, min: 0, max: 0, count: 0 };
+      const count = valid.length;
+      const mean = valid.reduce((a, b) => a + b, 0) / count;
+      const variance = valid.reduce((a, b) => a + Math.pow(b - mean, 2), 0) / count;
+      const stdDev = Math.sqrt(variance);
+      const min = Math.min(...valid);
+      const max = Math.max(...valid);
+      return { mean, stdDev, min, max, count };
+    }
+
+    function linearRegression(xArr, yArr) {
+      const n = xArr.length;
+      if (n === 0 || n !== yArr.length) return { slope: 0, intercept: 0, r2: 0 };
+      
+      let sumX = 0, sumY = 0, sumXY = 0, sumXX = 0, sumYY = 0;
+      for (let i = 0; i < n; i++) {
+        sumX += xArr[i];
+        sumY += yArr[i];
+        sumXY += xArr[i] * yArr[i];
+        sumXX += xArr[i] * xArr[i];
+        sumYY += yArr[i] * yArr[i];
+      }
+      
+      const denominator = (n * sumXX - sumX * sumX);
+      if (denominator === 0) return { slope: 0, intercept: 0, r2: 0 };
+      
+      const slope = (n * sumXY - sumX * sumY) / denominator;
+      const intercept = (sumY - slope * sumX) / n;
+      
+      const yMean = sumY / n;
+      let ssTot = 0, ssRes = 0;
+      for (let i = 0; i < n; i++) {
+        const yPred = slope * xArr[i] + intercept;
+        ssTot += Math.pow(yArr[i] - yMean, 2);
+        ssRes += Math.pow(yArr[i] - yPred, 2);
+      }
+      const r2 = ssTot === 0 ? 0 : Math.max(0, 1 - (ssRes / ssTot));
+      
+      return { slope, intercept, r2 };
+    }
+
+    function computePearsonCorrelation(xArr, yArr) {
+      const n = xArr.length;
+      if (n < 2 || n !== yArr.length) return 0;
+      const xMean = xArr.reduce((a, b) => a + b, 0) / n;
+      const yMean = yArr.reduce((a, b) => a + b, 0) / n;
+      
+      let num = 0, xDen = 0, yDen = 0;
+      for (let i = 0; i < n; i++) {
+        const xDiff = xArr[i] - xMean;
+        const yDiff = yArr[i] - yMean;
+        num += xDiff * yDiff;
+        xDen += xDiff * xDiff;
+        yDen += yDiff * yDiff;
+      }
+      const den = Math.sqrt(xDen * yDen);
+      return den === 0 ? 0 : num / den;
+    }
+
+    function trainNaiveBayesClassifier(dataset, featureCols, targetCol) {
+      if (!dataset || dataset.length < 4) return null;
+      
+      const shuffled = [...dataset].sort(() => 0.5 - Math.random());
+      const splitIdx = Math.floor(shuffled.length * 0.7);
+      const trainData = shuffled.slice(0, splitIdx);
+      const testData = shuffled.slice(splitIdx);
+      
+      const classes = [...new Set(dataset.map(r => String(r[targetCol])))];
+      if (classes.length < 2) return null;
+      
+      const classCounts = {};
+      classes.forEach(c => classCounts[c] = trainData.filter(r => String(r[targetCol]) === c).length);
+      
+      const stats = {};
+      classes.forEach(c => {
+        stats[c] = {};
+        const classRows = trainData.filter(r => String(r[targetCol]) === c);
+        featureCols.forEach(f => {
+          const vals = classRows.map(r => Number(r[f])).filter(n => !isNaN(n));
+          const s = calculateStats(vals);
+          stats[c][f] = { mean: s.mean || 0.001, stdDev: s.stdDev || 0.001 };
+        });
+      });
+      
+      const predictSample = (sample) => {
+        let bestClass = classes[0];
+        let maxLogProb = -Infinity;
+        
+        classes.forEach(c => {
+          const prior = (classCounts[c] || 1) / trainData.length;
+          let logProb = Math.log(prior);
+          
+          featureCols.forEach(f => {
+            const val = Number(sample[f]);
+            if (!isNaN(val)) {
+              const { mean, stdDev } = stats[c][f];
+              const stdev2 = Math.pow(stdDev, 2) + 1e-6;
+              const pdf = (1 / (Math.sqrt(2 * Math.PI) * stdDev)) * Math.exp(-Math.pow(val - mean, 2) / (2 * stdev2));
+              logProb += Math.log(Math.max(pdf, 1e-9));
+            }
+          });
+          
+          if (logProb > maxLogProb) {
+            maxLogProb = logProb;
+            bestClass = c;
+          }
+        });
+        return bestClass;
+      };
+      
+      let correct = 0;
+      const confusionMatrix = {};
+      classes.forEach(c1 => {
+        confusionMatrix[c1] = {};
+        classes.forEach(c2 => confusionMatrix[c1][c2] = 0);
+      });
+      
+      testData.forEach(row => {
+        const actual = String(row[targetCol]);
+        const pred = predictSample(row);
+        if (actual === pred) correct++;
+        if (confusionMatrix[actual] && confusionMatrix[actual][pred] !== undefined) {
+          confusionMatrix[actual][pred]++;
+        }
+      });
+      
+      const accuracy = testData.length > 0 ? (correct / testData.length) * 100 : 0;
+      
+      const featureImportance = {};
+      featureCols.forEach(f => {
+        const means = classes.map(c => stats[c][f].mean);
+        const meanStats = calculateStats(means);
+        featureImportance[f] = meanStats.stdDev;
+      });
+      
+      const totalImp = Object.values(featureImportance).reduce((a, b) => a + b, 0) || 1;
+      Object.keys(featureImportance).forEach(k => {
+        featureImportance[k] = (featureImportance[k] / totalImp) * 100;
+      });
+
+      return {
+        classes,
+        accuracy,
+        confusionMatrix,
+        featureImportance,
+        predictSample,
+        trainCount: trainData.length,
+        testCount: testData.length
+      };
+    }
+
+    async function callGeminiAPI(prompt, systemInstruction = "", userApiKey = "") {
+      const apiKey = userApiKey || ""; 
+      const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
+      
+      const payload = {
+        contents: [{ parts: [{ text: prompt }] }],
+      };
+      
+      if (systemInstruction) {
+        payload.systemInstruction = { parts: [{ text: systemInstruction }] };
+      }
+      
+      try {
+        const res = await fetch(apiUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        
+        if (!res.ok) {
+          const errText = await res.text();
+          throw new Error(`API Error ${res.status}: ${errText}`);
+        }
+        
+        const data = await res.json();
+        const text = data.candidates?.[0]?.content?.parts?.[0]?.text;
+        if (!text) throw new Error("Received an empty response from the AI intelligence model.");
+        return text;
+      } catch (error) {
+        console.error("Gemini API Error:", error);
+        throw error;
+      }
+    }
+
+    function App() {
+      const [activeTab, setActiveTab] = useState('home');
+      const [showSettings, setShowSettings] = useState(false);
+      const [apiKey, setApiKey] = useState('');
+      const [apiStatus, setApiStatus] = useState('unknown');
+
+      const [sessionStats, setSessionStats] = useState({
+        investigations: 0,
+        datasetsAnalyzed: 0,
+        hypothesesGenerated: 0,
+        experimentsDesigned: 0,
+        patternsDetected: 0,
+        predictionsExplored: 0
+      });
+
+      const [apiErrorMessage, setApiErrorMessage] = useState(null);
+      const [loadingStep, setLoadingStep] = useState(null);
+
+      // Discovery State
+      const [discoveryQuery, setDiscoveryQuery] = useState('');
+      const [discoveryResult, setDiscoveryResult] = useState(null);
+      const [hypothesisToTest, setHypothesisToTest] = useState('');
+      const [hypothesisEvalResult, setHypothesisEvalResult] = useState(null);
+
+      // Climate State
+      const [climateData, setClimateData] = useState({ headers: [], rows: [] });
+      const [climateSelectedX, setClimateSelectedX] = useState('');
+      const [climateSelectedY, setClimateSelectedY] = useState('');
+      const [climateAnalysisResult, setClimateAnalysisResult] = useState(null);
+
+      // Health State
+      const [healthData, setHealthData] = useState({ headers: [], rows: [] });
+      const [healthTargetCol, setHealthTargetCol] = useState('');
+      const [healthTrainedModel, setHealthTrainedModel] = useState(null);
+      const [healthAiExplanation, setHealthAiExplanation] = useState(null);
+      const [healthSampleInput, setHealthSampleInput] = useState({});
+      const [healthPredictionResult, setHealthPredictionResult] = useState(null);
+
+      // Science Challenge State
+      const [labChallenge, setLabChallenge] = useState(null);
+      const [labUserAnswer, setLabUserAnswer] = useState('');
+      const [labFeedback, setLabFeedback] = useState(null);
+
+      // General Data State
+      const [generalData, setGeneralData] = useState({ headers: [], rows: [] });
+      const [generalAnalysisResult, setGeneralAnalysisResult] = useState(null);
+
+      // Simulation State
+      const [simType, setSimType] = useState('cooling');
+      const [simParams, setSimParams] = useState({ temp: 80, surfaceArea: 50, humidity: 30, light: 70 });
+      const [simResult, setSimResult] = useState(null);
+
+      // Cross Domain Modal State
+      const [crossDomainInsight, setCrossDomainInsight] = useState(null);
+
+      useEffect(() => {
+        async function checkApi() {
+          setApiStatus('checking');
+          try {
+            const testRes = await callGeminiAPI("Ping. Respond with 'PONG'.", "", apiKey);
+            if (testRes) {
+              setApiStatus('connected');
+              setApiErrorMessage(null);
+            }
+          } catch (err) {
+            setApiStatus('error');
+            setApiErrorMessage("C.R.E.D.O. cannot reach the intelligence service right now. Please check the API connection and try again.");
+          }
+        }
+        checkApi();
+      }, [apiKey]);
+
+      const handleRunDiscovery = async () => {
+        if (!discoveryQuery.trim()) return;
+        setApiErrorMessage(null);
+        setLoadingStep("Parsing observation & formulating scientific variables...");
+        setDiscoveryResult(null);
+
+        const systemPrompt = `You are C.R.E.D.O., an advanced scientific intelligence system hosted by Credo World School Dhanbad.
+Analyze the user's scientific query and produce a structured JSON response. 
+You MUST format your output strictly as a single JSON object with no markdown formatting or backticks around it.
+Key requirements:
+{
+  "phenomenon": "summary of phenomenon",
+  "independentVariable": "string",
+  "dependentVariable": "string",
+  "controlVariables": ["string", "string"],
+  "testableHypothesis": "falsifiable testable hypothesis",
+  "scientificReasoning": "underlying scientific logic and mechanism",
+  "predictedOutcomes": ["outcome 1", "outcome 2"],
+  "experimentalDesign": {
+    "controlGroup": "string",
+    "experimentalGroup": "string",
+    "materials": ["material 1", "material 2"],
+    "procedure": ["step 1", "step 2", "step 3"],
+    "measurements": "string",
+    "confoundingVariables": ["variable 1", "variable 2"]
+  },
+  "conclusionFramework": "how results validate or refute hypothesis"
+}`;
+
+        try {
+          setLoadingStep("Calling Gemini live reasoning model...");
+          const rawRes = await callGeminiAPI(discoveryQuery, systemPrompt, apiKey);
+          setLoadingStep("Formatting structured scientific analysis...");
+          
+          const cleanJson = rawRes.replace(/```json|```/g, '').trim();
+          const parsed = JSON.parse(cleanJson);
+          
+          setDiscoveryResult(parsed);
+          setSessionStats(prev => ({
+            ...prev,
+            investigations: prev.investigations + 1,
+            hypothesesGenerated: prev.hypothesesGenerated + 1,
+            experimentsDesigned: prev.experimentsDesigned + 1
+          }));
+        } catch (err) {
+          setApiErrorMessage("C.R.E.D.O. cannot reach the intelligence service right now.");
+        } finally {
+          setLoadingStep(null);
+        }
+      };
+
+      const handleEvaluateHypothesis = async () => {
+        if (!hypothesisToTest.trim()) return;
+        setApiErrorMessage(null);
+        setLoadingStep("Evaluating hypothesis quality criteria...");
+        setHypothesisEvalResult(null);
+
+        const systemPrompt = `Evaluate the user's hypothesis live. Return strictly a JSON object with:
+{
+  "testability": "High / Medium / Low",
+  "falsifiability": "High / Medium / Low",
+  "measurability": "High / Medium / Low",
+  "strengths": ["string"],
+  "weaknesses": ["string"],
+  "improvedHypothesis": "refined scientific hypothesis string",
+  "explanation": "detailed breakdown"
+}`;
+
+        try {
+          const rawRes = await callGeminiAPI(hypothesisToTest, systemPrompt, apiKey);
+          const cleanJson = rawRes.replace(/```json|```/g, '').trim();
+          const parsed = JSON.parse(cleanJson);
+          setHypothesisEvalResult(parsed);
+        } catch (err) {
+          setApiErrorMessage("C.R.E.D.O. cannot reach the intelligence service right now.");
+        } finally {
+          setLoadingStep(null);
+        }
+      };
+
+      const handleClimateFileUpload = (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = (evt) => {
+          const parsed = parseCSV(evt.target.result);
+          if (parsed.headers.length > 0) {
+            setClimateData(parsed);
+            setClimateSelectedX(parsed.headers[0]);
+            const numHeaders = parsed.headers.filter(h => typeof parsed.rows[0]?.[h] === 'number');
+            setClimateSelectedY(numHeaders[1] || numHeaders[0] || parsed.headers[1]);
+            setSessionStats(prev => ({ ...prev, datasetsAnalyzed: prev.datasetsAnalyzed + 1 }));
+          }
+        };
+        reader.readAsText(file);
+      };
+
+      const handleRunClimateAnalysis = async () => {
+        if (!climateData.rows.length || !climateSelectedX || !climateSelectedY) return;
+        setApiErrorMessage(null);
+        setLoadingStep("Executing client-side linear regression & statistical analysis...");
+
+        const xVals = climateData.rows.map(r => Number(r[climateSelectedX])).filter(n => !isNaN(n));
+        const yVals = climateData.rows.map(r => Number(r[climateSelectedY])).filter(n => !isNaN(n));
+
+        if (xVals.length < 2 || yVals.length < 2) {
+          setApiErrorMessage("There is not enough numeric data in the selected columns to make a meaningful trend analysis.");
+          setLoadingStep(null);
+          return;
+        }
+
+        const reg = linearRegression(xVals, yVals);
+        const corr = computePearsonCorrelation(xVals, yVals);
+        const xStats = calculateStats(xVals);
+        const yStats = calculateStats(yVals);
+
+        const trendType = reg.slope > 0.001 ? "Increasing Trend" : reg.slope < -0.001 ? "Decreasing Trend" : "Stable / Flat";
+
+        setLoadingStep("Generating live AI scientific interpretation...");
+
+        const prompt = `Analyze this climate dataset statistics computed on ${xVals.length} data points:
+- Variable X (${climateSelectedX}): Mean=${xStats.mean.toFixed(2)}, Min=${xStats.min}, Max=${xStats.max}
+- Variable Y (${climateSelectedY}): Mean=${yStats.mean.toFixed(2)}, Min=${yStats.min}, Max=${yStats.max}
+- Calculated Regression Slope: ${reg.slope.toFixed(4)}
+- Calculated R² Value: ${reg.r2.toFixed(4)}
+- Pearson Correlation Coefficient: ${corr.toFixed(4)}
+- Detected Trend: ${trendType}
+
+Return strictly JSON:
+{
+  "summary": "live natural language summary of findings",
+  "physicalMechanism": "underlying climate driver or mechanism",
+  "uncertaintyAndLimitations": "explanation of uncertainty based on R² and data size",
+  "futureProjection": "extrapolation grounded strictly in this regression model"
+}`;
+
+        try {
+          const rawRes = await callGeminiAPI(prompt, "", apiKey);
+          const cleanJson = rawRes.replace(/```json|```/g, '').trim();
+          const aiParsed = JSON.parse(cleanJson);
+
+          setClimateAnalysisResult({
+            stats: { reg, corr, xStats, yStats, trendType, count: xVals.length },
+            ai: aiParsed
+          });
+          setSessionStats(prev => ({ ...prev, predictionsExplored: prev.predictionsExplored + 1 }));
+        } catch (err) {
+          setApiErrorMessage("C.R.E.D.O. cannot reach the intelligence service right now.");
+        } finally {
+          setLoadingStep(null);
+        }
+      };
+
+      const handleHealthFileUpload = (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = (evt) => {
+          const parsed = parseCSV(evt.target.result);
+          if (parsed.headers.length > 1) {
+            setHealthData(parsed);
+            const lastCol = parsed.headers[parsed.headers.length - 1];
+            setHealthTargetCol(lastCol);
+            const initialSample = {};
+            parsed.headers.slice(0, -1).forEach(h => {
+              initialSample[h] = parsed.rows[0]?.[h] || 0;
+            });
+            setHealthSampleInput(initialSample);
+            setSessionStats(prev => ({ ...prev, datasetsAnalyzed: prev.datasetsAnalyzed + 1 }));
+          }
+        };
+        reader.readAsText(file);
+      };
+
+      const handleTrainHealthModel = async () => {
+        if (!healthData.rows.length || !healthTargetCol) return;
+        setApiErrorMessage(null);
+        setLoadingStep("Training client-side Naïve Bayes Classifier on dataset split...");
+
+        const featureCols = healthData.headers.filter(h => h !== healthTargetCol);
+        const trained = trainNaiveBayesClassifier(healthData.rows, featureCols, healthTargetCol);
+
+        if (!trained) {
+          setApiErrorMessage("Insufficient labeled data or classes to train a valid classifier.");
+          setLoadingStep(null);
+          return;
+        }
+
+        setHealthTrainedModel(trained);
+        setLoadingStep("Generating live AI interpretation...");
+
+        const prompt = `A Naïve Bayes classifier was trained on an educational health dataset (${trained.trainCount} train samples, ${trained.testCount} test samples).
+- Calculated Model Accuracy: ${trained.accuracy.toFixed(1)}%
+- Target Classes: ${trained.classes.join(', ')}
+- Feature Importance Weights: ${JSON.stringify(trained.featureImportance)}
+
+Return strictly JSON:
+{
+  "patternSummary": "natural language pattern analysis",
+  "keyPredictors": "explanation of top feature weights",
+  "modelLimitations": "why synthetic/educational data differs from clinical diagnostics"
+}`;
+
+        try {
+          const rawRes = await callGeminiAPI(prompt, "", apiKey);
+          const cleanJson = rawRes.replace(/```json|```/g, '').trim();
+          const aiParsed = JSON.parse(cleanJson);
+          setHealthAiExplanation(aiParsed);
+          setSessionStats(prev => ({ ...prev, patternsDetected: prev.patternsDetected + 1 }));
+        } catch (err) {
+          setApiErrorMessage("C.R.E.D.O. cannot reach the intelligence service right now.");
+        } finally {
+          setLoadingStep(null);
+        }
+      };
+
+      const handleClassifyHealthSample = () => {
+        if (!healthTrainedModel) return;
+        const predictedClass = healthTrainedModel.predictSample(healthSampleInput);
+        setHealthPredictionResult(predictedClass);
+      };
+
+      const handleGenerateLabChallenge = async () => {
+        setApiErrorMessage(null);
+        setLoadingStep("Constructing a new scientific challenge...");
+        setLabChallenge(null);
+        setLabFeedback(null);
+        setLabUserAnswer('');
+
+        const systemPrompt = `Generate a fresh scientific reasoning challenge for Credo World School students. Return strictly JSON:
+{
+  "title": "Challenge Title",
+  "domain": "Physics / Chemistry / Biology / Environmental Science",
+  "scenario": "Detailed scientific scenario description",
+  "question": "Core scientific reasoning question posed to user",
+  "evaluationCriteria": ["variable identification", "experimental logic", "mechanistic reasoning"]
+}`;
+
+        try {
+          const rawRes = await callGeminiAPI("Generate a brand-new scientific discovery challenge now.", systemPrompt, apiKey);
+          const cleanJson = rawRes.replace(/```json|```/g, '').trim();
+          const parsed = JSON.parse(cleanJson);
+          setLabChallenge(parsed);
+        } catch (err) {
+          setApiErrorMessage("C.R.E.D.O. cannot reach the intelligence service right now.");
+        } finally {
+          setLoadingStep(null);
+        }
+      };
+
+      const handleEvaluateLabAnswer = async () => {
+        if (!labChallenge || !labUserAnswer.trim()) return;
+        setApiErrorMessage(null);
+        setLoadingStep("Evaluating answer against scientific criteria...");
+
+        const prompt = `Evaluate the user's scientific answer:
+Challenge: ${labChallenge.scenario}
+Question: ${labChallenge.question}
+User Answer: "${labUserAnswer}"
+
+Score out of 100 based on scientific reasoning and variable controls. Return strictly JSON:
+{
+  "score": 85,
+  "rating": "Excellent / Strong / Developing / Needs Improvement",
+  "strengths": ["what user got right"],
+  "missingElements": ["what was missing or flawed"],
+  "scientificExplanation": "full correct scientific reasoning breakdown"
+}`;
+
+        try {
+          const rawRes = await callGeminiAPI(prompt, "", apiKey);
+          const cleanJson = rawRes.replace(/```json|```/g, '').trim();
+          const parsed = JSON.parse(cleanJson);
+          setLabFeedback(parsed);
+        } catch (err) {
+          setApiErrorMessage("C.R.E.D.O. cannot reach the intelligence service right now.");
+        } finally {
+          setLoadingStep(null);
+        }
+      };
+
+      const handleGeneralFileUpload = (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = (evt) => {
+          const parsed = parseCSV(evt.target.result);
+          if (parsed.headers.length > 0) {
+            setGeneralData(parsed);
+            setSessionStats(prev => ({ ...prev, datasetsAnalyzed: prev.datasetsAnalyzed + 1 }));
+          }
+        };
+        reader.readAsText(file);
+      };
+
+      const handleRunGeneralAnalysis = async () => {
+        if (!generalData.rows.length) return;
+        setApiErrorMessage(null);
+        setLoadingStep("Inspecting dataset dimensions and correlations...");
+
+        const rowCount = generalData.rows.length;
+        const colCount = generalData.headers.length;
+        const numericCols = generalData.headers.filter(h => typeof generalData.rows[0]?.[h] === 'number');
+
+        const colSummaries = {};
+        numericCols.forEach(col => {
+          const vals = generalData.rows.map(r => Number(r[col])).filter(n => !isNaN(n));
+          colSummaries[col] = calculateStats(vals);
+        });
+
+        setLoadingStep("Asking AI model to generate exploratory report...");
+
+        const prompt = `Dataset Summary:
+- Rows: ${rowCount}, Columns: ${colCount}
+- Numeric Stats: ${JSON.stringify(colSummaries)}
+
+Generate a dataset exploration report. Return strictly JSON:
+{
+  "overview": "summary of dataset structure",
+  "keyObservations": ["observation 1", "observation 2"],
+  "suggestedHypotheses": ["testable hypothesis 1", "testable hypothesis 2"],
+  "recommendedNextSteps": ["step 1", "step 2"]
+}`;
+
+        try {
+          const rawRes = await callGeminiAPI(prompt, "", apiKey);
+          const cleanJson = rawRes.replace(/```json|```/g, '').trim();
+          const parsed = JSON.parse(cleanJson);
+          setGeneralAnalysisResult({
+            rowCount, colCount, colSummaries, ai: parsed
+          });
+        } catch (err) {
+          setApiErrorMessage("C.R.E.D.O. cannot reach the intelligence service right now.");
+        } finally {
+          setLoadingStep(null);
+        }
+      };
+
+      const handleRunSimulation = async () => {
+        setApiErrorMessage(null);
+        setLoadingStep("Calculating physical parameters & running simulation model...");
+
+        let mathModelSummary = "";
+        if (simType === 'cooling') {
+          const rate = 0.05 * (simParams.temp - 20) * (simParams.surfaceArea / 50);
+          mathModelSummary = `Newton's Law of Cooling: Initial Temp=${simParams.temp}°C, Area=${simParams.surfaceArea}cm², Est. initial cooling rate=${rate.toFixed(2)}°C/min`;
+        } else if (simType === 'photosynthesis') {
+          const rate = Math.min(simParams.light * 1.2, 100) * (simParams.temp > 10 && simParams.temp < 40 ? 1 : 0.4);
+          mathModelSummary = `Photosynthetic Yield Index: Light=${simParams.light}%, Temp=${simParams.temp}°C, Rate Index=${rate.toFixed(1)} O₂ units/hr`;
+        } else {
+          const rate = (simParams.temp * 0.8 + simParams.surfaceArea * 0.5) * (1 - simParams.humidity / 100);
+          mathModelSummary = `Evaporation Rate Index: Temp=${simParams.temp}°C, Surface=${simParams.surfaceArea}cm², Humidity=${simParams.humidity}%, Rate=${rate.toFixed(1)} g/hr`;
+        }
+
+        const prompt = `Scientific Simulation Mode: ${simType.toUpperCase()}
+Calculations: ${mathModelSummary}
+Parameters: ${JSON.stringify(simParams)}
+
+Return strictly JSON:
+{
+  "qualitativeEffect": "detailed scientific prediction based on parameters",
+  "rateLimitingFactor": "what parameter is currently limiting the rate",
+  "experimentalAdvice": "how to optimize or alter the reaction rate"
+}`;
+
+        try {
+          const rawRes = await callGeminiAPI(prompt, "", apiKey);
+          const cleanJson = rawRes.replace(/```json|```/g, '').trim();
+          const parsed = JSON.parse(cleanJson);
+          setSimResult({ mathSummary: mathModelSummary, ai: parsed });
+        } catch (err) {
+          setApiErrorMessage("C.R.E.D.O. cannot reach the intelligence service right now.");
+        } finally {
+          setLoadingStep(null);
+        }
+      };
+
+      const handleFetchCrossDomainInsight = async (findingText) => {
+        setCrossDomainInsight(null);
+        setApiErrorMessage(null);
+        setLoadingStep("Mapping multi-disciplinary scientific connections...");
+
+        const prompt = `Scientific finding: "${findingText}"
+Map connections to 3 distinct scientific fields.
+Return strictly JSON:
+{
+  "finding": "${findingText}",
+  "connections": [
+    { "domain": "Field Name 1", "connection": "How finding impacts or relates to this field" },
+    { "domain": "Field Name 2", "connection": "How finding impacts or relates to this field" },
+    { "domain": "Field Name 3", "connection": "How finding impacts or relates to this field" }
+  ]
+}`;
+
+        try {
+          const rawRes = await callGeminiAPI(prompt, "", apiKey);
+          const cleanJson = rawRes.replace(/```json|```/g, '').trim();
+          const parsed = JSON.parse(cleanJson);
+          setCrossDomainInsight(parsed);
+        } catch (err) {
+          setApiErrorMessage("C.R.E.D.O. cannot reach the intelligence service right now.");
+        } finally {
+          setLoadingStep(null);
+        }
+      };
+
+      return (
+        <div className="min-h-screen bg-slate-50 text-slate-800 flex flex-col font-sans selection:bg-[#235327] selection:text-white">
+          
+          {/* HEADER */}
+          <header className="border-b border-slate-200 bg-white/95 backdrop-blur sticky top-0 z-40 shadow-xs">
+            <div className="max-w-7xl mx-auto px-4 py-2.5 flex flex-wrap items-center justify-between gap-4">
+              
+              <div className="flex items-center space-x-4 cursor-pointer" onClick={() => setActiveTab('home')}>
+                <CredoWorldSchoolLogo size="md" />
+                
+                <div className="hidden sm:block border-l border-slate-200 pl-3">
+                  <div className="flex items-center space-x-2">
+                    <span className="font-extrabold text-base tracking-wider text-[#235327]">C.R.E.D.O.</span>
+                    <span className="text-[10px] uppercase font-mono tracking-wider bg-emerald-50 text-[#235327] px-2 py-0.5 rounded border border-emerald-200 font-bold">
+                      Intelligence Portal
+                    </span>
+                  </div>
+                  <p className="text-[11px] text-slate-500 font-medium truncate max-w-xs md:max-w-md">
+                    {FULL_NAME}
+                  </p>
+                </div>
+              </div>
+
+              {/* Navigation Tabs */}
+              <nav className="flex items-center space-x-1 overflow-x-auto py-1 text-xs font-semibold">
+                {[
+                  { id: 'home', label: 'Home', icon: 'globe' },
+                  { id: 'discovery', label: 'Discovery', icon: 'beaker' },
+                  { id: 'climate', label: 'Climate', icon: 'globe' },
+                  { id: 'health', label: 'Health Lab', icon: 'activity' },
+                  { id: 'lab', label: 'Science Challenge', icon: 'zap' },
+                  { id: 'analysis', label: 'Data Explorer', icon: 'barchart' },
+                  { id: 'simulator', label: 'Simulations', icon: 'sliders' },
+                  { id: 'exhibition', label: 'Exhibition', icon: 'sparkles' },
+                  { id: 'about', label: 'About', icon: 'book' },
+                ].map((tab) => {
+                  const isActive = activeTab === tab.id;
+                  return (
+                    <button
+                      key={tab.id}
+                      onClick={() => setActiveTab(tab.id)}
+                      className={`flex items-center space-x-1.5 px-3 py-2 rounded-lg transition-all whitespace-nowrap ${
+                        isActive 
+                          ? 'bg-[#235327] text-white shadow-sm font-bold' 
+                          : 'text-slate-600 hover:text-[#235327] hover:bg-emerald-50/60'
+                      }`}
+                    >
+                      <Icon name={tab.icon} className="w-3.5 h-3.5" />
+                      <span>{tab.label}</span>
+                    </button>
+                  );
+                })}
+              </nav>
+
+              <div className="flex items-center space-x-3">
+                <div className="flex items-center space-x-1.5 px-2.5 py-1 rounded-full bg-slate-100 border border-slate-200 text-xs font-medium">
+                  <span className={`w-2 h-2 rounded-full ${
+                    apiStatus === 'connected' ? 'bg-emerald-500 animate-pulse' :
+                    apiStatus === 'checking' ? 'bg-amber-500 animate-ping' : 'bg-red-500'
+                  }`} />
+                  <span className="text-slate-700 font-mono text-[11px]">
+                    {apiStatus === 'connected' ? 'AI Ready' :
+                     apiStatus === 'checking' ? 'Checking...' : 'Offline'}
+                  </span>
+                </div>
+
+                <button 
+                  onClick={() => setShowSettings(true)}
+                  className="p-1.5 text-slate-500 hover:text-[#235327] rounded-lg hover:bg-slate-100 border border-slate-200 transition-colors"
+                  title="C.R.E.D.O. Settings"
+                >
+                  <Icon name="settings" className="w-4 h-4" />
+                </button>
+              </div>
+
+            </div>
+          </header>
+
+          {/* ERROR BANNER */}
+          {apiErrorMessage && (
+            <div className="bg-red-50 border-b border-red-200 text-red-800 px-4 py-2.5 text-xs flex items-center justify-between">
+              <div className="flex items-center space-x-2 max-w-5xl mx-auto">
+                <Icon name="alertCircle" className="w-4 h-4 text-red-600 shrink-0" />
+                <span>{apiErrorMessage}</span>
+              </div>
+              <button 
+                onClick={() => setApiErrorMessage(null)} 
+                className="text-red-600 hover:text-red-900 font-bold ml-4"
+              >
+                ✕
+              </button>
+            </div>
+          )}
+
+          {/* LOADING OVERLAY */}
+          {loadingStep && (
+            <div className="fixed inset-0 z-50 bg-slate-900/40 backdrop-blur-xs flex flex-col items-center justify-center p-4">
+              <div className="bg-white border border-emerald-200 rounded-2xl p-6 max-w-md w-full shadow-xl flex flex-col items-center text-center space-y-4">
+                <div className="relative">
+                  <Icon name="atom" className="w-12 h-12 text-[#235327] animate-spin" />
+                  <Icon name="sparkles" className="w-5 h-5 text-[#D9383A] absolute -top-1 -right-1 animate-bounce" />
+                </div>
+                <div>
+                  <h4 className="text-base font-bold text-slate-900">C.R.E.D.O. Processing</h4>
+                  <p className="text-xs font-mono text-[#235327] mt-1 font-semibold">{loadingStep}</p>
+                </div>
+                <div className="w-full bg-slate-100 rounded-full h-1.5 overflow-hidden">
+                  <div className="bg-[#235327] h-full w-2/3 animate-pulse rounded-full" />
+                </div>
+                <p className="text-[11px] text-slate-400">Live AI analysis for Credo World School Dhanbad</p>
+              </div>
+            </div>
+          )}
+
+          {}
+          <main className="flex-1 max-w-7xl w-full mx-auto p-4 md:p-6 space-y-6">
+
+            {/* HOME TAB */}
+            {activeTab === 'home' && (
+              <div className="space-y-8">
+                <div className="relative overflow-hidden bg-white border border-slate-200 rounded-3xl p-6 md:p-10 shadow-sm flex flex-col md:flex-row items-center justify-between gap-8">
+                  <div className="max-w-2xl space-y-4">
+                    
+                    <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-[#235327] text-xs font-semibold">
+                      <Icon name="school" className="w-3.5 h-3.5 text-[#235327]" />
+                      <span>Credo World School Dhanbad • Intelligence Platform</span>
+                    </div>
+
+                    <div className="space-y-1">
+                      <h1 className="text-3xl md:text-5xl font-black tracking-tight text-slate-900">
+                        C.R.E.D.O. <span className="text-[#235327]">System</span>
+                      </h1>
+                      <p className="text-sm font-mono text-[#D9383A] font-bold">
+                        {FULL_NAME}
+                      </p>
+                    </div>
+
+                    <p className="text-slate-600 text-sm md:text-base leading-relaxed">
+                      A dedicated multidisciplinary research and discovery engine designed for students and educators. 
+                      Formulate hypotheses, analyze climate data trends, train educational machine learning classifiers, and run physical simulations in a clean, interactive environment.
+                    </p>
+
+                    <div className="flex flex-wrap gap-3 pt-2">
+                      <button 
+                        onClick={() => setActiveTab('discovery')}
+                        className="flex items-center space-x-2 px-5 py-2.5 bg-[#235327] hover:bg-[#1b411f] text-white font-bold rounded-xl transition-all shadow-md hover:shadow-lg"
+                      >
+                        <Icon name="beaker" className="w-4 h-4" />
+                        <span>Start Investigation</span>
+                      </button>
+                      <button 
+                        onClick={() => setActiveTab('exhibition')}
+                        className="flex items-center space-x-2 px-5 py-2.5 bg-red-50 hover:bg-red-100 text-[#D9383A] border border-red-200 font-bold rounded-xl transition-all"
+                      >
+                        <Icon name="sparkles" className="w-4 h-4 text-[#D9383A]" />
+                        <span>Exhibition Mode</span>
+                      </button>
+                    </div>
+
+                  </div>
+
+                  <div className="bg-slate-50 border border-slate-200 p-8 rounded-2xl flex flex-col items-center justify-center shrink-0 w-full md:w-72 text-center space-y-3">
+                    <CredoWorldSchoolLogo size="lg" />
+                    <div className="border-t border-slate-200 pt-3 w-full text-center">
+                      <span className="text-[11px] font-mono font-semibold text-slate-500 uppercase tracking-wider block">
+                        Institutional Portal
+                      </span>
+                      <span className="text-[10px] text-slate-400 block mt-0.5">
+                        Scientific Discovery & Analysis
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-2 md:grid-cols-6 gap-3">
+                  {[
+                    { label: 'Investigations', count: sessionStats.investigations, icon: 'search', color: 'text-[#235327]' },
+                    { label: 'Datasets Analyzed', count: sessionStats.datasetsAnalyzed, icon: 'hardDrive', color: 'text-blue-600' },
+                    { label: 'Hypotheses Formed', count: sessionStats.hypothesesGenerated, icon: 'helpCircle', color: 'text-[#D9383A]' },
+                    { label: 'Experiments Built', count: sessionStats.experimentsDesigned, icon: 'beaker', color: 'text-amber-600' },
+                    { label: 'Patterns Detected', count: sessionStats.patternsDetected, icon: 'layers', color: 'text-emerald-600' },
+                    { label: 'Predictions Explored', count: sessionStats.predictionsExplored, icon: 'crosshair', color: 'text-purple-600' },
+                  ].map((stat, i) => (
+                    <div key={i} className="bg-white border border-slate-200 rounded-xl p-3.5 flex flex-col justify-between shadow-2xs hover:border-slate-300 transition-all">
+                      <div className="flex items-center justify-between text-slate-500">
+                        <span className="text-[11px] font-semibold">{stat.label}</span>
+                        <Icon name={stat.icon} className={`w-4 h-4 ${stat.color}`} />
+                      </div>
+                      <div className="text-2xl font-black text-slate-900 mt-2 font-mono">{stat.count}</div>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  <div onClick={() => setActiveTab('discovery')} className="group cursor-pointer bg-white border border-slate-200 hover:border-[#235327] rounded-2xl p-6 transition-all hover:shadow-md flex flex-col justify-between space-y-4">
+                    <div className="space-y-3">
+                      <div className="p-3 bg-emerald-50 text-[#235327] rounded-xl w-fit border border-emerald-100">
+                        <Icon name="beaker" className="w-6 h-6" />
+                      </div>
+                      <h3 className="text-lg font-bold text-slate-900 group-hover:text-[#235327] transition-colors">Scientific Discovery</h3>
+                      <p className="text-xs text-slate-600 leading-relaxed">Construct hypotheses, isolate variables, design controlled experiments, and evaluate research logic.</p>
+                    </div>
+                    <div className="flex items-center text-xs text-[#235327] font-bold group-hover:translate-x-1 transition-transform">
+                      <span>Launch Engine</span>
+                      <Icon name="chevronRight" className="w-4 h-4 ml-1" />
+                    </div>
+                  </div>
+
+                  <div onClick={() => setActiveTab('climate')} className="group cursor-pointer bg-white border border-slate-200 hover:border-red-400 rounded-2xl p-6 transition-all hover:shadow-md flex flex-col justify-between space-y-4">
+                    <div className="space-y-3">
+                      <div className="p-3 bg-red-50 text-[#D9383A] rounded-xl w-fit border border-red-100">
+                        <Icon name="globe" className="w-6 h-6" />
+                      </div>
+                      <h3 className="text-lg font-bold text-slate-900 group-hover:text-[#D9383A] transition-colors">Climate Intelligence</h3>
+                      <p className="text-xs text-slate-600 leading-relaxed">Analyze environmental CSV datasets with client-side linear regressions, scatter plots, and AI interpretations.</p>
+                    </div>
+                    <div className="flex items-center text-xs text-[#D9383A] font-bold group-hover:translate-x-1 transition-transform">
+                      <span>Explore Climate Data</span>
+                      <Icon name="chevronRight" className="w-4 h-4 ml-1" />
+                    </div>
+                  </div>
+
+                  <div onClick={() => setActiveTab('health')} className="group cursor-pointer bg-white border border-slate-200 hover:border-amber-500 rounded-2xl p-6 transition-all hover:shadow-md flex flex-col justify-between space-y-4">
+                    <div className="space-y-3">
+                      <div className="p-3 bg-amber-50 text-amber-700 rounded-xl w-fit border border-amber-100">
+                        <Icon name="activity" className="w-6 h-6" />
+                      </div>
+                      <h3 className="text-lg font-bold text-slate-900 group-hover:text-amber-700 transition-colors">Health Pattern Lab</h3>
+                      <p className="text-xs text-slate-600 leading-relaxed">Train live client-side Naïve Bayes classifiers on educational synthetic datasets. Inspect accuracy and feature weights.</p>
+                    </div>
+                    <div className="flex items-center text-xs text-amber-700 font-bold group-hover:translate-x-1 transition-transform">
+                      <span>Train Classifier</span>
+                      <Icon name="chevronRight" className="w-4 h-4 ml-1" />
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            )}
+
+            {/* DISCOVERY TAB */}
+            {activeTab === 'discovery' && (
+              <div className="space-y-6">
+                <div className="bg-white border border-slate-200 rounded-2xl p-5 flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-2xs">
+                  <div>
+                    <h2 className="text-xl font-bold text-slate-900 flex items-center gap-2">
+                      <Icon name="beaker" className="w-5 h-5 text-[#235327]" />
+                      Scientific Discovery Engine
+                    </h2>
+                    <p className="text-xs text-slate-500 mt-1">OBSERVATION → QUESTION → VARIABLES → HYPOTHESIS → PREDICTION → EXPERIMENT</p>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                  <div className="lg:col-span-5 bg-white border border-slate-200 rounded-2xl p-5 space-y-4 shadow-2xs">
+                    <label className="block text-xs font-bold uppercase tracking-wider text-slate-600">Enter Scientific Observation or Question</label>
+                    <textarea
+                      rows={4}
+                      value={discoveryQuery}
+                      onChange={(e) => setDiscoveryQuery(e.target.value)}
+                      placeholder="e.g. How does soil pH affect seed germination and plant enzyme activity?"
+                      className="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:border-[#235327] focus:bg-white"
+                    />
+                    
+                    <button
+                      onClick={handleRunDiscovery}
+                      disabled={!discoveryQuery.trim()}
+                      className="w-full py-2.5 bg-[#235327] hover:bg-[#1b411f] disabled:opacity-50 text-white font-bold rounded-xl text-xs transition-all flex items-center justify-center space-x-2 shadow-xs"
+                    >
+                      <Icon name="search" className="w-4 h-4" />
+                      <span>Execute Analysis</span>
+                    </button>
+
+                    <div className="border-t border-slate-200 pt-4 mt-6 space-y-3">
+                      <h4 className="text-xs font-bold uppercase tracking-wider text-[#235327] flex items-center gap-1.5">
+                        <Icon name="checkCircle" className="w-4 h-4" />
+                        Hypothesis Quality Checker
+                      </h4>
+                      <input
+                        type="text"
+                        value={hypothesisToTest}
+                        onChange={(e) => setHypothesisToTest(e.target.value)}
+                        placeholder="Enter a hypothesis to evaluate..."
+                        className="w-full bg-slate-50 border border-slate-300 rounded-xl p-2.5 text-xs text-slate-900 focus:outline-none focus:border-[#235327]"
+                      />
+                      <button
+                        onClick={handleEvaluateHypothesis}
+                        disabled={!hypothesisToTest.trim()}
+                        className="w-full py-2 bg-slate-100 hover:bg-slate-200 text-xs text-slate-800 border border-slate-300 rounded-xl font-semibold transition-all"
+                      >
+                        Evaluate Quality Criteria
+                      </button>
+
+                      {hypothesisEvalResult && (
+                        <div className="bg-emerald-50/60 border border-emerald-200 rounded-xl p-3 space-y-2 text-xs">
+                          <div className="flex justify-between text-[11px] font-semibold text-slate-600">
+                            <span>Testability: <strong className="text-[#235327]">{hypothesisEvalResult.testability}</strong></span>
+                            <span>Falsifiability: <strong className="text-[#235327]">{hypothesisEvalResult.falsifiability}</strong></span>
+                          </div>
+                          <div>
+                            <span className="text-slate-500 text-[10px] uppercase font-bold">REFINED HYPOTHESIS:</span>
+                            <p className="text-[#235327] font-semibold mt-0.5">{hypothesisEvalResult.improvedHypothesis}</p>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+
+                  <div className="lg:col-span-7 space-y-4">
+                    {!discoveryResult ? (
+                      <div className="bg-white border border-slate-200 rounded-2xl p-10 text-center space-y-3 shadow-2xs">
+                        <Icon name="beaker" className="w-10 h-10 text-slate-300 mx-auto" />
+                        <p className="text-xs text-slate-500">Submit a scientific inquiry to construct hypotheses and experimental models live.</p>
+                      </div>
+                    ) : (
+                      <div className="space-y-4">
+                        <div className="bg-white border border-slate-200 rounded-2xl p-5 space-y-3 shadow-2xs">
+                          <div className="flex justify-between items-start">
+                            <span className="text-xs font-bold uppercase tracking-wider bg-emerald-50 text-[#235327] px-2.5 py-1 rounded-lg border border-emerald-200">Phenomenon Identified</span>
+                            <button onClick={() => handleFetchCrossDomainInsight(discoveryResult.phenomenon)} className="text-xs text-[#235327] hover:underline flex items-center gap-1 font-bold">
+                              <Icon name="sparkles" className="w-3.5 h-3.5 text-[#D9383A]" />
+                              Cross-Domain Insight
+                            </button>
+                          </div>
+                          <h3 className="text-base font-bold text-slate-900">{discoveryResult.phenomenon}</h3>
+                          
+                          <div className="grid grid-cols-1 md:grid-cols-3 gap-2 text-xs font-medium pt-2">
+                            <div className="bg-slate-50 p-2.5 rounded-xl border border-slate-200">
+                              <span className="text-slate-400 block text-[10px] font-bold">INDEPENDENT VAR</span>
+                              <span className="text-slate-800">{discoveryResult.independentVariable}</span>
+                            </div>
+                            <div className="bg-slate-50 p-2.5 rounded-xl border border-slate-200">
+                              <span className="text-slate-400 block text-[10px] font-bold">DEPENDENT VAR</span>
+                              <span className="text-[#235327]">{discoveryResult.dependentVariable}</span>
+                            </div>
+                            <div className="bg-slate-50 p-2.5 rounded-xl border border-slate-200">
+                              <span className="text-slate-400 block text-[10px] font-bold">CONTROLS</span>
+                              <span className="text-slate-700">{discoveryResult.controlVariables?.join(', ')}</span>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="bg-white border border-slate-200 rounded-2xl p-5 space-y-3 shadow-2xs">
+                          <span className="text-xs font-bold uppercase tracking-wider bg-red-50 text-[#D9383A] px-2.5 py-1 rounded-lg border border-red-200">Testable Hypothesis</span>
+                          <p className="text-sm font-semibold text-slate-900">"{discoveryResult.testableHypothesis}"</p>
+                          <div className="text-xs text-slate-700 bg-slate-50 p-3 rounded-xl border border-slate-200 space-y-1">
+                            <span className="text-slate-400 font-bold text-[10px] uppercase block">Scientific Logic</span>
+                            <p>{discoveryResult.scientificReasoning}</p>
+                          </div>
+                        </div>
+
+                        <div className="bg-white border border-slate-200 rounded-2xl p-5 space-y-3 shadow-2xs">
+                          <span className="text-xs font-bold uppercase tracking-wider bg-slate-100 text-slate-800 px-2.5 py-1 rounded-lg border border-slate-200">Controlled Experiment Protocol</span>
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
+                            <div className="bg-slate-50 p-3 rounded-xl border border-slate-200">
+                              <span className="text-slate-400 font-bold text-[10px] uppercase block">Materials Required</span>
+                              <ul className="list-disc list-inside text-slate-700 mt-1 space-y-0.5">
+                                {discoveryResult.experimentalDesign?.materials?.map((m, i) => <li key={i}>{m}</li>)}
+                              </ul>
+                            </div>
+                            <div className="bg-slate-50 p-3 rounded-xl border border-slate-200">
+                              <span className="text-slate-400 font-bold text-[10px] uppercase block">Procedure Steps</span>
+                              <ol className="list-decimal list-inside text-slate-700 mt-1 space-y-0.5">
+                                {discoveryResult.experimentalDesign?.procedure?.map((p, i) => <li key={i}>{p}</li>)}
+                              </ol>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* CLIMATE TAB */}
+            {activeTab === 'climate' && (
+              <div className="space-y-6">
+                <div className="bg-white border border-slate-200 rounded-2xl p-5 flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-2xs">
+                  <div>
+                    <h2 className="text-xl font-bold text-slate-900 flex items-center gap-2">
+                      <Icon name="globe" className="w-5 h-5 text-[#D9383A]" />
+                      Climate Intelligence Engine
+                    </h2>
+                    <p className="text-xs text-slate-500 mt-1">Client-side regressions, correlation matrices, and live AI environmental interpretation.</p>
+                  </div>
+                </div>
+
+                <div className="bg-white border border-slate-200 rounded-2xl p-5 space-y-4 shadow-2xs">
+                  <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+                    <div>
+                      <h3 className="text-sm font-bold text-slate-900">Upload Dataset (CSV)</h3>
+                      <p className="text-xs text-slate-500">Provide environmental measurements with numerical columns.</p>
+                    </div>
+
+                    <label className="cursor-pointer px-4 py-2 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 text-[#235327] text-xs font-bold rounded-xl transition-all flex items-center gap-2">
+                      <Icon name="upload" className="w-4 h-4" />
+                      <span>Choose CSV File</span>
+                      <input type="file" accept=".csv" onChange={handleClimateFileUpload} className="hidden" />
+                    </label>
+                  </div>
+
+                  {climateData.rows.length === 0 ? (
+                    <div className="border border-dashed border-slate-200 rounded-2xl p-8 text-center space-y-2 bg-slate-50/50">
+                      <Icon name="globe" className="w-8 h-8 text-slate-300 mx-auto" />
+                      <p className="text-xs text-slate-500">Upload a CSV dataset to execute climate regression analysis.</p>
+                    </div>
+                  ) : (
+                    <div className="space-y-4 pt-2">
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+                        <div>
+                          <label className="block font-semibold text-slate-600 mb-1">X-Axis Column (Independent):</label>
+                          <select value={climateSelectedX} onChange={(e) => setClimateSelectedX(e.target.value)} className="w-full bg-slate-50 border border-slate-300 rounded-xl p-2 text-slate-800">
+                            {climateData.headers.map(h => <option key={h} value={h}>{h}</option>)}
+                          </select>
+                        </div>
+                        <div>
+                          <label className="block font-semibold text-slate-600 mb-1">Y-Axis Column (Target):</label>
+                          <select value={climateSelectedY} onChange={(e) => setClimateSelectedY(e.target.value)} className="w-full bg-slate-50 border border-slate-300 rounded-xl p-2 text-slate-800">
+                            {climateData.headers.map(h => <option key={h} value={h}>{h}</option>)}
+                          </select>
+                        </div>
+                        <div className="flex items-end">
+                          <button onClick={handleRunClimateAnalysis} className="w-full py-2 bg-[#235327] hover:bg-[#1b411f] text-white font-bold rounded-xl text-xs transition-all flex items-center justify-center space-x-1 shadow-xs">
+                            <Icon name="play" className="w-3.5 h-3.5" />
+                            <span>Run Regression Model</span>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                {climateAnalysisResult && (
+                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                    <div className="lg:col-span-7 bg-white border border-slate-200 rounded-2xl p-5 space-y-4 shadow-2xs">
+                      <div className="flex justify-between items-center">
+                        <h3 className="text-xs font-bold text-slate-900 uppercase tracking-wider">Regression Plot</h3>
+                        <span className="text-xs font-mono font-bold text-[#235327]">R² = {climateAnalysisResult.stats.reg.r2.toFixed(3)}</span>
+                      </div>
+
+                      <div className="w-full h-64 bg-slate-50 border border-slate-200 rounded-xl relative p-4 flex items-center justify-center">
+                        <svg className="w-full h-full overflow-visible">
+                          {climateData.rows.map((r, i) => {
+                            const xVal = Number(r[climateSelectedX]);
+                            const yVal = Number(r[climateSelectedY]);
+                            if (isNaN(xVal) || isNaN(yVal)) return null;
+                            
+                            const minX = climateAnalysisResult.stats.xStats.min;
+                            const maxX = climateAnalysisResult.stats.xStats.max || 1;
+                            const minY = climateAnalysisResult.stats.yStats.min;
+                            const maxY = climateAnalysisResult.stats.yStats.max || 1;
+
+                            const cx = ((xVal - minX) / (maxX - minX || 1)) * 90 + 5;
+                            const cy = 95 - (((yVal - minY) / (maxY - minY || 1)) * 90);
+
+                            return (
+                              <circle key={i} cx={`${cx}%`} cy={`${cy}%`} r="5" className="fill-[#235327] hover:fill-[#D9383A] transition-colors cursor-pointer">
+                                <title>{`${climateSelectedX}: ${xVal}, ${climateSelectedY}: ${yVal}`}</title>
+                              </circle>
+                            );
+                          })}
+                        </svg>
+                      </div>
+                      <p className="text-[11px] text-slate-400 text-center font-mono">Plotting {climateAnalysisResult.stats.count} rows from CSV dataset.</p>
+                    </div>
+
+                    <div className="lg:col-span-5 bg-white border border-slate-200 rounded-2xl p-5 space-y-4 shadow-2xs">
+                      <div className="flex items-center justify-between">
+                        <h3 className="text-xs font-bold text-slate-900 uppercase tracking-wider">Climate Findings</h3>
+                        <span className="text-xs text-[#235327] font-bold">{climateAnalysisResult.stats.trendType}</span>
+                      </div>
+
+                      <div className="grid grid-cols-2 gap-2 text-xs font-mono">
+                        <div className="bg-slate-50 p-2.5 rounded-xl border border-slate-200">
+                          <span className="text-slate-400 block text-[10px]">CORRELATION (r)</span>
+                          <span className="text-slate-900 font-bold">{climateAnalysisResult.stats.corr.toFixed(3)}</span>
+                        </div>
+                        <div className="bg-slate-50 p-2.5 rounded-xl border border-slate-200">
+                          <span className="text-slate-400 block text-[10px]">SLOPE</span>
+                          <span className="text-[#235327] font-bold">{climateAnalysisResult.stats.reg.slope.toFixed(4)}</span>
+                        </div>
+                      </div>
+
+                      <div className="space-y-3 text-xs">
+                        <div className="bg-slate-50 p-3 rounded-xl border border-slate-200 space-y-1">
+                          <span className="text-slate-400 font-bold text-[10px] uppercase block">Executive Summary</span>
+                          <p className="text-slate-800">{climateAnalysisResult.ai.summary}</p>
+                        </div>
+                        <div className="bg-slate-50 p-3 rounded-xl border border-slate-200 space-y-1">
+                          <span className="text-slate-400 font-bold text-[10px] uppercase block">Physical Mechanism</span>
+                          <p className="text-slate-700">{climateAnalysisResult.ai.physicalMechanism}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* HEALTH LAB TAB */}
+            {activeTab === 'health' && (
+              <div className="space-y-6">
+                <div className="bg-white border border-slate-200 rounded-2xl p-5 flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-2xs">
+                  <div>
+                    <h2 className="text-xl font-bold text-slate-900 flex items-center gap-2">
+                      <Icon name="activity" className="w-5 h-5 text-amber-600" />
+                      Health Pattern Lab
+                    </h2>
+                    <p className="text-xs text-slate-500 mt-1">Educational & synthetic dataset pattern classification engine.</p>
+                  </div>
+                </div>
+
+                <div className="bg-white border border-slate-200 rounded-2xl p-5 space-y-4 shadow-2xs">
+                  <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+                    <div>
+                      <h3 className="text-sm font-bold text-slate-900">Synthetic Educational Dataset</h3>
+                      <p className="text-xs text-slate-500">Upload CSV with feature columns and target outcome column.</p>
+                    </div>
+
+                    <label className="cursor-pointer px-4 py-2 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 text-[#235327] text-xs font-bold rounded-xl transition-all flex items-center gap-2">
+                      <Icon name="upload" className="w-4 h-4" />
+                      <span>Choose Health CSV</span>
+                      <input type="file" accept=".csv" onChange={handleHealthFileUpload} className="hidden" />
+                    </label>
+                  </div>
+
+                  {healthData.rows.length === 0 ? (
+                    <div className="border border-dashed border-slate-200 rounded-2xl p-8 text-center text-xs text-slate-400 bg-slate-50/50">
+                      Upload dataset to train client-side classifier.
+                    </div>
+                  ) : (
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs font-medium pt-2">
+                      <div>
+                        <label className="block text-slate-600 mb-1 font-semibold">Target Category Column:</label>
+                        <select value={healthTargetCol} onChange={(e) => setHealthTargetCol(e.target.value)} className="w-full bg-slate-50 border border-slate-300 rounded-xl p-2 text-slate-800">
+                          {healthData.headers.map(h => <option key={h} value={h}>{h}</option>)}
+                        </select>
+                      </div>
+
+                      <div className="flex items-end">
+                        <button onClick={handleTrainHealthModel} className="w-full py-2 bg-[#235327] hover:bg-[#1b411f] text-white font-bold rounded-xl text-xs transition-all flex items-center justify-center space-x-1">
+                          <Icon name="cpu" className="w-3.5 h-3.5" />
+                          <span>Train Naïve Bayes Classifier</span>
+                        </button>
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                {healthTrainedModel && (
+                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                    <div className="lg:col-span-5 bg-white border border-slate-200 rounded-2xl p-5 space-y-4 shadow-2xs">
+                      <h3 className="text-xs font-bold text-slate-900 uppercase tracking-wider">Classifier Metrics</h3>
+                      
+                      <div className="grid grid-cols-2 gap-2 text-xs font-mono">
+                        <div className="bg-emerald-50 p-2.5 rounded-xl border border-emerald-200">
+                          <span className="text-[#235327] block text-[10px] font-bold">ACCURACY</span>
+                          <span className="text-slate-900 font-extrabold text-base">{healthTrainedModel.accuracy.toFixed(1)}%</span>
+                        </div>
+                        <div className="bg-slate-50 p-2.5 rounded-xl border border-slate-200">
+                          <span className="text-slate-400 block text-[10px] font-bold">CLASSES</span>
+                          <span className="text-slate-800 font-bold">{healthTrainedModel.classes.length}</span>
+                        </div>
+                      </div>
+
+                      <div className="space-y-2">
+                        <span className="text-xs font-semibold text-slate-500 uppercase">Calculated Feature Weights:</span>
+                        {Object.entries(healthTrainedModel.featureImportance).map(([feat, imp]) => (
+                          <div key={feat} className="space-y-1">
+                            <div className="flex justify-between text-xs font-mono text-slate-700">
+                              <span>{feat}</span>
+                              <span>{imp.toFixed(1)}%</span>
+                            </div>
+                            <div className="w-full bg-slate-100 rounded-full h-1.5 overflow-hidden">
+                              <div className="bg-[#235327] h-full rounded-full" style={{ width: `${imp}%` }} />
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+
+                      <div className="border-t border-slate-200 pt-4 space-y-3">
+                        <h4 className="text-xs font-bold text-[#235327] uppercase">Classify Sample Record</h4>
+                        {Object.keys(healthSampleInput).map(feat => (
+                          <div key={feat} className="flex items-center justify-between text-xs">
+                            <span className="text-slate-600 font-medium">{feat}:</span>
+                            <input
+                              type="number"
+                              value={healthSampleInput[feat]}
+                              onChange={(e) => setHealthSampleInput({ ...healthSampleInput, [feat]: Number(e.target.value) })}
+                              className="w-24 bg-slate-50 border border-slate-300 rounded-lg p-1 text-right text-slate-800"
+                            />
+                          </div>
+                        ))}
+                        <button onClick={handleClassifyHealthSample} className="w-full py-2 bg-slate-100 hover:bg-slate-200 text-xs text-slate-900 font-bold rounded-xl transition-all">
+                          Classify Sample Input
+                        </button>
+                        {healthPredictionResult && (
+                          <div className="p-2.5 bg-emerald-50 border border-emerald-200 rounded-xl text-center">
+                            <span className="text-[10px] text-[#235327] uppercase font-bold block">Predicted Outcome</span>
+                            <span className="text-sm font-bold text-[#235327]">{healthPredictionResult}</span>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+
+                    <div className="lg:col-span-7 bg-white border border-slate-200 rounded-2xl p-5 space-y-4 shadow-2xs">
+                      <h3 className="text-xs font-bold text-slate-900 uppercase tracking-wider">AI Educational Breakdown</h3>
+                      
+                      {healthAiExplanation && (
+                        <div className="space-y-3 text-xs">
+                          <div className="bg-slate-50 p-3 rounded-xl border border-slate-200 space-y-1">
+                            <span className="text-slate-400 font-bold text-[10px] uppercase block">Pattern Analysis</span>
+                            <p className="text-slate-800">{healthAiExplanation.patternSummary}</p>
+                          </div>
+
+                          <div className="bg-slate-50 p-3 rounded-xl border border-slate-200 space-y-1">
+                            <span className="text-slate-400 font-bold text-[10px] uppercase block">Key Feature Indicators</span>
+                            <p className="text-slate-700">{healthAiExplanation.keyPredictors}</p>
+                          </div>
+
+                          <div className="bg-amber-50 p-3 rounded-xl border border-amber-200 space-y-1">
+                            <span className="text-amber-800 font-bold text-[10px] uppercase block flex items-center gap-1">
+                              <Icon name="shieldAlert" className="w-3.5 h-3.5 text-amber-600" />
+                              Educational Boundary Notice
+                            </span>
+                            <p className="text-amber-900/80">{healthAiExplanation.modelLimitations}</p>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* SCIENCE CHALLENGE TAB */}
+            {activeTab === 'lab' && (
+              <div className="space-y-6">
+                <div className="bg-white border border-slate-200 rounded-2xl p-5 flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-2xs">
+                  <div>
+                    <h2 className="text-xl font-bold text-slate-900 flex items-center gap-2">
+                      <Icon name="zap" className="w-5 h-5 text-[#235327]" />
+                      Science Challenge Arena
+                    </h2>
+                    <p className="text-xs text-slate-500 mt-1">Dynamically generated reasoning challenges for Credo World School students.</p>
+                  </div>
+
+                  <button onClick={handleGenerateLabChallenge} className="px-4 py-2 bg-[#235327] hover:bg-[#1b411f] text-white font-bold text-xs rounded-xl transition-all flex items-center gap-2 shadow-xs">
+                    <Icon name="sparkles" className="w-4 h-4 text-amber-300" />
+                    <span>Generate New Problem</span>
+                  </button>
+                </div>
+
+                {!labChallenge ? (
+                  <div className="bg-white border border-slate-200 rounded-2xl p-10 text-center space-y-3 shadow-2xs">
+                    <Icon name="zap" className="w-10 h-10 text-slate-300 mx-auto" />
+                    <p className="text-xs text-slate-500">Click 'Generate New Problem' to begin a live scientific challenge.</p>
+                  </div>
+                ) : (
+                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                    <div className="lg:col-span-7 bg-white border border-slate-200 rounded-2xl p-5 space-y-4 shadow-2xs">
+                      <div className="flex items-center justify-between">
+                        <span className="text-xs font-bold uppercase tracking-wider bg-emerald-50 text-[#235327] px-2.5 py-1 rounded-lg border border-emerald-200">{labChallenge.domain}</span>
+                        <span className="text-xs text-slate-500 font-semibold">{labChallenge.title}</span>
+                      </div>
+
+                      <div className="space-y-2">
+                        <h3 className="text-base font-bold text-slate-900">{labChallenge.scenario}</h3>
+                        <p className="text-xs text-[#235327] font-semibold bg-emerald-50/50 p-3 rounded-xl border border-emerald-100">❓ Question: {labChallenge.question}</p>
+                      </div>
+
+                      <div className="space-y-2">
+                        <label className="block text-xs font-bold text-slate-600 uppercase">Your Explanation & Response:</label>
+                        <textarea
+                          rows={5}
+                          value={labUserAnswer}
+                          onChange={(e) => setLabUserAnswer(e.target.value)}
+                          placeholder="Detail your scientific reasoning, variables, and potential mechanism..."
+                          className="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 text-xs text-slate-900 focus:outline-none focus:border-[#235327]"
+                        />
+                      </div>
+
+                      <button onClick={handleEvaluateLabAnswer} disabled={!labUserAnswer.trim()} className="w-full py-2.5 bg-[#235327] hover:bg-[#1b411f] disabled:opacity-50 text-white font-bold text-xs rounded-xl transition-all shadow-xs">
+                        Submit for AI Evaluation
+                      </button>
+                    </div>
+
+                    <div className="lg:col-span-5 bg-white border border-slate-200 rounded-2xl p-5 space-y-4 shadow-2xs">
+                      <h3 className="text-xs font-bold text-slate-900 uppercase tracking-wider">Evaluation & Assessment</h3>
+
+                      {!labFeedback ? (
+                        <div className="border border-dashed border-slate-200 rounded-xl p-8 text-center text-xs text-slate-400 bg-slate-50/50">
+                          Submit your response to receive live evaluation metrics.
+                        </div>
+                      ) : (
+                        <div className="space-y-3 text-xs">
+                          <div className="flex items-center justify-between bg-slate-50 p-3 rounded-xl border border-slate-200">
+                            <div>
+                              <span className="text-slate-400 text-[10px] font-bold block">RATING</span>
+                              <span className="text-sm font-bold text-[#235327]">{labFeedback.rating}</span>
+                            </div>
+                            <div className="text-right">
+                              <span className="text-slate-400 text-[10px] font-bold block">SCORE</span>
+                              <span className="text-xl font-black text-[#D9383A] font-mono">{labFeedback.score}/100</span>
+                            </div>
+                          </div>
+
+                          <div className="bg-slate-50 p-3 rounded-xl border border-slate-200 space-y-1">
+                            <span className="text-slate-400 font-bold text-[10px] uppercase block">Key Strengths</span>
+                            <ul className="list-disc list-inside text-[#235327] font-medium">
+                              {labFeedback.strengths?.map((s, i) => <li key={i}>{s}</li>)}
+                            </ul>
+                          </div>
+
+                          <div className="bg-slate-50 p-3 rounded-xl border border-slate-200 space-y-1">
+                            <span className="text-slate-400 font-bold text-[10px] uppercase block">Model Breakdown</span>
+                            <p className="text-slate-700 leading-relaxed">{labFeedback.scientificExplanation}</p>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* DATA EXPLORER TAB */}
+            {activeTab === 'analysis' && (
+              <div className="space-y-6">
+                <div className="bg-white border border-slate-200 rounded-2xl p-5 space-y-4 shadow-2xs">
+                  <h2 className="text-xl font-bold text-slate-900 flex items-center gap-2">
+                    <Icon name="barchart" className="w-5 h-5 text-[#235327]" />
+                    General Dataset Explorer
+                  </h2>
+                  
+                  <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+                    <p className="text-xs text-slate-500">Upload any custom CSV dataset for statistical inspection and automated AI hypothesis suggestions.</p>
+                    <label className="cursor-pointer px-4 py-2 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 text-[#235327] text-xs font-bold rounded-xl transition-all flex items-center gap-2">
+                      <Icon name="upload" className="w-4 h-4" />
+                      <span>Choose CSV</span>
+                      <input type="file" accept=".csv" onChange={handleGeneralFileUpload} className="hidden" />
+                    </label>
+                  </div>
+
+                  {generalData.rows.length === 0 ? (
+                    <div className="border border-dashed border-slate-200 rounded-2xl p-8 text-center text-xs text-slate-400 bg-slate-50/50">
+                      Upload a CSV file to inspect structure.
+                    </div>
+                  ) : (
+                    <div className="space-y-4">
+                      <button onClick={handleRunGeneralAnalysis} className="w-full py-2 bg-[#235327] hover:bg-[#1b411f] text-white font-bold rounded-xl text-xs transition-all shadow-xs">
+                        Analyze Loaded Dataset ({generalData.rows.length} rows, {generalData.headers.length} cols)
+                      </button>
+
+                      {generalAnalysisResult && (
+                        <div className="space-y-4 text-xs">
+                          <div className="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-2">
+                            <span className="text-slate-400 font-bold text-[10px] uppercase block">Overview</span>
+                            <p className="text-slate-800">{generalAnalysisResult.ai.overview}</p>
+                          </div>
+
+                          <div className="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-2">
+                            <span className="text-slate-400 font-bold text-[10px] uppercase block">Suggested Scientific Hypotheses</span>
+                            <ul className="list-disc list-inside text-[#235327] font-medium space-y-1">
+                              {generalAnalysisResult.ai.suggestedHypotheses?.map((h, i) => <li key={i}>{h}</li>)}
+                            </ul>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
+
+            {/* SIMULATOR TAB */}
+            {activeTab === 'simulator' && (
+              <div className="space-y-6">
+                <div className="bg-white border border-slate-200 rounded-2xl p-5 space-y-4 shadow-2xs">
+                  <h2 className="text-xl font-bold text-slate-900 flex items-center gap-2">
+                    <Icon name="sliders" className="w-5 h-5 text-[#235327]" />
+                    Interactive Physical Experiment Simulator
+                  </h2>
+
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                    {['cooling', 'photosynthesis', 'evaporation'].map(st => (
+                      <button
+                        key={st}
+                        onClick={() => setSimType(st)}
+                        className={`p-3 rounded-xl border text-xs font-semibold capitalize transition-all ${
+                          simType === st ? 'bg-emerald-50 border-[#235327] text-[#235327] font-bold' : 'bg-slate-50 border-slate-200 text-slate-600'
+                        }`}
+                      >
+                        {st} Simulation Model
+                      </button>
+                    ))}
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                    <div className="space-y-1 bg-slate-50 p-3 rounded-xl border border-slate-200">
+                      <label className="text-slate-700 font-semibold block">Temperature (°C): {simParams.temp}</label>
+                      <input type="range" min="0" max="100" value={simParams.temp} onChange={(e) => setSimParams({ ...simParams, temp: Number(e.target.value) })} className="w-full accent-[#235327]" />
+                    </div>
+                    <div className="space-y-1 bg-slate-50 p-3 rounded-xl border border-slate-200">
+                      <label className="text-slate-700 font-semibold block">Surface Area / Light: {simParams.surfaceArea}</label>
+                      <input type="range" min="10" max="100" value={simParams.surfaceArea} onChange={(e) => setSimParams({ ...simParams, surfaceArea: Number(e.target.value) })} className="w-full accent-[#235327]" />
+                    </div>
+                  </div>
+
+                  <button onClick={handleRunSimulation} className="w-full py-2.5 bg-[#235327] hover:bg-[#1b411f] text-white font-bold rounded-xl text-xs transition-all shadow-xs">
+                    Run Simulation Calculations & AI Model
+                  </button>
+
+                  {simResult && (
+                    <div className="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-2 text-xs">
+                      <span className="text-[#235327] font-mono font-bold text-[11px] block">{simResult.mathSummary}</span>
+                      <p className="text-slate-700">{simResult.ai.qualitativeEffect}</p>
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
+
+            {/* EXHIBITION TAB */}
+            {activeTab === 'exhibition' && (
+              <div className="space-y-8 py-4">
+                <div className="text-center max-w-2xl mx-auto space-y-3">
+                  <CredoWorldSchoolLogo size="lg" />
+                  <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-[#235327] text-xs font-semibold">
+                    <Icon name="sparkles" className="w-3.5 h-3.5 text-[#D9383A]" />
+                    <span>Science Fair & Exhibition Mode</span>
+                  </div>
+                  <h1 className="text-3xl font-black text-slate-900">Interactive Student Demonstration</h1>
+                  <p className="text-xs text-slate-500 font-medium">Select a scientific intelligence module to test live.</p>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+                  {[
+                    { id: 'discovery', title: '🔬 DISCOVER', desc: 'Formulate hypotheses and experimental protocols live.', border: 'border-emerald-300 hover:border-[#235327]', bg: 'bg-emerald-50/40 text-[#235327]' },
+                    { id: 'climate', title: '🌍 PREDICT', desc: 'Run linear regressions on environmental CSV datasets.', border: 'border-red-300 hover:border-[#D9383A]', bg: 'bg-red-50/40 text-[#D9383A]' },
+                    { id: 'health', title: '🧬 DETECT', desc: 'Train Naïve Bayes classifiers on health metrics.', border: 'border-amber-300 hover:border-amber-600', bg: 'bg-amber-50/40 text-amber-800' },
+                    { id: 'lab', title: '🧪 CHALLENGE', desc: 'Solve live scientific reasoning scenarios.', border: 'border-blue-300 hover:border-blue-600', bg: 'bg-blue-50/40 text-blue-900' },
+                  ].map(card => (
+                    <button
+                      key={card.id}
+                      onClick={() => setActiveTab(card.id)}
+                      className={`border-2 ${card.border} ${card.bg} p-8 rounded-3xl text-left space-y-3 hover:scale-102 transition-all shadow-xs`}
+                    >
+                      <h3 className="text-2xl font-black">{card.title}</h3>
+                      <p className="text-xs text-slate-600 leading-relaxed font-medium">{card.desc}</p>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* ABOUT TAB */}
+            {activeTab === 'about' && (
+              <div className="bg-white border border-slate-200 rounded-2xl p-6 md:p-8 space-y-6 max-w-4xl mx-auto shadow-2xs">
+                <div className="flex flex-col sm:flex-row items-center justify-between gap-4 border-b border-slate-200 pb-6">
+                  <div className="space-y-1">
+                    <h2 className="text-2xl font-black text-slate-900">About C.R.E.D.O. System</h2>
+                    <p className="text-xs font-mono font-bold text-[#235327]">{FULL_NAME}</p>
+                    <p className="text-xs font-semibold text-[#D9383A]">{INSTITUTION}</p>
+                    <p className="text-xs text-slate-400 font-semibold mt-1">{CREATOR}</p>
+                  </div>
+                  <CredoWorldSchoolLogo size="lg" />
+                </div>
+
+                <div className="space-y-4 text-xs text-slate-700 leading-relaxed">
+                  <h3 className="text-xs font-bold text-[#235327] uppercase tracking-wider">Mission Statement</h3>
+                  <p>
+                    C.R.E.D.O. (Computational Research & Exploration for Discovery and Observation) is designed as a student research tool for Credo World School Dhanbad. It provides hands-on interactive exposure to hypothesis construction, statistical modeling, machine learning concepts, and experimental design.
+                  </p>
+
+                  <h3 className="text-xs font-bold text-[#235327] uppercase tracking-wider">Core Guarantees</h3>
+                  <ul className="list-disc list-inside space-y-1 text-slate-600">
+                    <li>100% Live AI reasoning: No static pre-scripted outputs.</li>
+                    <li>Client-side mathematical integrity: Regression equations, correlation coefficients, and classifier probability weights are calculated directly in client JS.</li>
+                    <li>Clean educational interface aligned with official school branding.</li>
+                  </ul>
+                </div>
+              </div>
+            )}
+
+          </main>
+
+          {/* CROSS DOMAIN MODAL */}
+          {crossDomainInsight && (
+            <div className="fixed inset-0 z-50 bg-slate-900/30 backdrop-blur-xs flex items-center justify-center p-4">
+              <div className="bg-white border border-slate-200 rounded-2xl p-6 max-w-2xl w-full space-y-4 shadow-xl">
+                <div className="flex justify-between items-start border-b border-slate-100 pb-3">
+                  <div>
+                    <span className="text-[10px] font-bold text-[#235327] uppercase tracking-wider">Cross-Domain Relationship Map</span>
+                    <h3 className="text-sm font-bold text-slate-900 mt-0.5">"{crossDomainInsight.finding}"</h3>
+                  </div>
+                  <button onClick={() => setCrossDomainInsight(null)} className="text-slate-400 hover:text-slate-700 font-bold">✕</button>
+                </div>
+
+                <div className="space-y-3">
+                  {crossDomainInsight.connections?.map((conn, idx) => (
+                    <div key={idx} className="bg-slate-50 p-3 rounded-xl border border-slate-200 text-xs space-y-1">
+                      <span className="text-[#235327] font-bold">{conn.domain}</span>
+                      <p className="text-slate-600">{conn.connection}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* SETTINGS MODAL */}
+          {showSettings && (
+            <div className="fixed inset-0 z-50 bg-slate-900/30 backdrop-blur-xs flex items-center justify-center p-4">
+              <div className="bg-white border border-slate-200 rounded-2xl p-6 max-w-md w-full space-y-4 shadow-xl">
+                <div className="flex justify-between items-center border-b border-slate-100 pb-3">
+                  <h3 className="text-sm font-bold text-slate-900 flex items-center gap-2">
+                    <Icon name="settings" className="w-4 h-4 text-[#235327]" />
+                    C.R.E.D.O. System Settings
+                  </h3>
+                  <button onClick={() => setShowSettings(false)} className="text-slate-400 hover:text-slate-700 font-bold">✕</button>
+                </div>
+
+                <div className="space-y-3 text-xs">
+                  <div>
+                    <label className="block text-slate-600 mb-1 font-semibold">Gemini API Key Override:</label>
+                    <input
+                      type="password"
+                      value={apiKey}
+                      onChange={(e) => setApiKey(e.target.value)}
+                      placeholder="Optional API key override..."
+                      className="w-full bg-slate-50 border border-slate-300 rounded-xl p-2 text-slate-800 font-mono"
+                    />
+                  </div>
+
+                  <div className="bg-slate-50 p-3 rounded-xl border border-slate-200 space-y-1 font-mono text-[11px]">
+                    <div className="text-slate-500">System Info:</div>
+                    <div className="text-slate-800 font-semibold">{INSTITUTION}</div>
+                    <div className="text-slate-600">{CREATOR}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* FOOTER */}
+          <footer className="border-t border-slate-200 bg-white py-4 px-4 text-center text-xs text-slate-500 font-medium">
+            <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
+              <div className="flex items-center space-x-2">
+                <span className="font-bold text-[#235327]">C.R.E.D.O.</span>
+                <span>•</span>
+                <span className="text-slate-600">{INSTITUTION}</span>
+              </div>
+              <span className="text-[#D9383A] font-bold">{CREATOR}</span>
+            </div>
+          </footer>
+
+        </div>
+      );
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<App />);
+  </script>
+</body>
+</html>
